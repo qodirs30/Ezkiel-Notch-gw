@@ -130,6 +130,7 @@ struct ExpandedView: View {
         case .stash: StashPane(model: model)
         case .oasis: OasisPane(model: model)
         case .settings: SettingsPane(model: model, calendar: model.calendar)
+        case .ai: AIPane(model: model)
         }
     }
 }

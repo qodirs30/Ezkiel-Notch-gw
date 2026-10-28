@@ -3,7 +3,7 @@ import SwiftUI
 
 /// The places in the open notch, each with its own name, symbol, accent and height.
 enum NotchTab: String, CaseIterable, Identifiable {
-    case den, hunt, roar, scratch, purr, stash, oasis, settings
+    case den, hunt, roar, scratch, purr, stash, oasis, settings, ai
 
     var id: String { rawValue }
 
@@ -17,6 +17,7 @@ enum NotchTab: String, CaseIterable, Identifiable {
         case .stash: return "Stash"
         case .oasis: return "Oasis"
         case .settings: return "Settings"
+        case .ai: return "AI"
         }
     }
 
@@ -31,6 +32,7 @@ enum NotchTab: String, CaseIterable, Identifiable {
         case .stash: return "File shelf"
         case .oasis: return "Water"
         case .settings: return "Settings"
+        case .ai: return "AI Companion"
         }
     }
 
@@ -44,6 +46,7 @@ enum NotchTab: String, CaseIterable, Identifiable {
         case .stash: return "tray.full"
         case .oasis: return "drop"
         case .settings: return "gearshape"
+        case .ai: return "sparkles"
         }
     }
 
@@ -55,6 +58,7 @@ enum NotchTab: String, CaseIterable, Identifiable {
         case .roar: return "bell.fill"
         case .oasis: return "drop.fill"
         case .settings: return "gearshape.fill"
+        case .ai: return "sparkles"
         }
     }
 
@@ -68,6 +72,7 @@ enum NotchTab: String, CaseIterable, Identifiable {
         case .stash: return .stash
         case .oasis: return .oasis
         case .settings: return .neutral
+        case .ai: return .stash
         }
     }
 
