@@ -1,0 +1,62 @@
+name: Build Ezkiel Notch
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+    paths-ignore: ["windows/**", ".github/workflows/windows.yml"]
+  pull_request:
+    paths-ignore: ["windows/**", ".github/workflows/windows.yml"]
+  workflow_dispatch:
+    inputs:
+      release:
+        description: "Publish a GitHub Release with the DMG and ZIP"
+        type: boolean
+        default: false
+      screenshots:
+        description: "Commit fresh screenshots to docs/screenshots"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Toolchain
+        run: |
+          XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          sudo xcode-select -s "${XCODE:-/Applications/Xcode_16.4.app}" || true
+          xcodebuild -version || true
+          swift --version
+          sw_vers
+
+      - name: Unit tests
+        run: swift test
+
+      - name: Build app, DMG and ZIP
+        run: ./scripts/build_app.sh
+
+      - name: Self-test
+        run: |
+          "dist/Ezkiel Notch.app/Contents/MacOS/EzkielNotch" --self-test --snapshots "$PWD/snapshots" --fake-notch --data "$PWD/demo-data.json" &
+          PID=$!
+          for i in $(seq 1 150); do
+            if ! kill -0 $PID 2>/dev/null; then break; fi
+            sleep 1
+          done
+          if kill -0 $PID 2>/dev/null; then echo "self-test timed out"; kill $PID; exit 1; fi
+          wait $PID
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: EzkielNotch-macOS
+          path: |
+            dist/*.dmg
+            dist/*.zip
+            dist/SHA256SUMS.txt
