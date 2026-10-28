@@ -176,6 +176,7 @@ enum NotchMetrics {
         case .stash: return 128
         case .oasis: return 136
         case .settings: return 196
+        case .ai: return 180
         }
     }
 
