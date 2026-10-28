@@ -64,7 +64,13 @@ struct ExpandedView: View {
 
             HStack(spacing: 4) {
                 Spacer(minLength: 0)
-                // The weather takes the clock's place (the menu bar keeps its own clock).
+                
+                // Tombol AI selalu tampil paling depan
+                IconButton(icon: "sparkles", label: "Tanya AI", size: 24, tint: Accent.stash.deep) {
+                    // Logic buka AI akan kita buat di sini
+                }
+
+                // Weather atau Jam
                 if let w = model.weather.now {
                     WeatherChip(now: w, city: model.settings.weatherCity, fahrenheit: model.settings.fahrenheit)
                         .padding(.trailing, 4)
