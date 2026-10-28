@@ -9,6 +9,8 @@ struct ExpandedView: View {
     @Namespace private var tabSpace
     @State private var appeared = false
 
+    @State private var showingAI = false
+
     var body: some View {
         VStack(spacing: 0) {
             header
@@ -30,6 +32,10 @@ struct ExpandedView: View {
             .padding(.top, NotchMetrics.pageTop)
             .clipped()
             Spacer(minLength: 0)
+        }
+        .sheet(isPresented: $showingAI) {
+            AIPane(model: model)
+                .frame(width: 400, height: 300)
         }
         .padding(.horizontal, NotchMetrics.pageInset)
         .padding(.bottom, NotchMetrics.pageBottom)
@@ -67,7 +73,7 @@ struct ExpandedView: View {
                 
                 // Tombol AI selalu tampil paling depan
                 IconButton(icon: "sparkles", label: "Tanya AI", size: 24, tint: Accent.stash.deep) {
-                    // Logic buka AI akan kita buat di sini
+                    showingAI.toggle()
                 }
 
                 // Weather atau Jam
