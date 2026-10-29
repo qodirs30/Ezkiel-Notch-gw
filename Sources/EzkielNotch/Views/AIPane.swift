@@ -48,6 +48,11 @@ struct AIPane: View {
                     .padding(8)
                     .background(Color.white.opacity(0.05))
                     .cornerRadius(8)
+                    .onSubmit {
+                        if !chatInput.isEmpty && !isSending {
+                            sendMessage()
+                        }
+                    }
                 
                 Button(action: sendMessage) {
                     Image(systemName: "arrow.up.circle.fill")
@@ -71,7 +76,7 @@ struct AIPane: View {
 
         Task {
             do {
-                let url = URL(string: "http://localhost:8787/v1/chat/completions")!
+                let url = URL(string: "http://localhost:20128/v1/chat/completions")!
                 var request = URLRequest(url: url)
                 request.httpMethod = "POST"
                 request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -82,16 +87,23 @@ struct AIPane: View {
                 ]
                 request.httpBody = try JSONSerialization.data(withJSONObject: body)
                 
-                let (data, _) = try await URLSession.shared.data(for: request)
+                // Gunakan timeout singkat biar ngga nunggu lama
+                let configuration = URLSessionConfiguration.default
+                configuration.timeoutIntervalForRequest = 15
+                let session = URLSession(configuration: configuration)
+                
+                let (data, _) = try await session.data(for: request)
                 let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
                 let choices = json?["choices"] as? [[String: Any]]
                 let content = choices?.first?["message"] as? [String: Any]
                 
                 if let response = content?["content"] as? String {
                     messages.append(ChatMessage(role: "assistant", content: response))
+                } else {
+                    messages.append(ChatMessage(role: "assistant", content: "Format balasan AI tidak dikenal."))
                 }
             } catch {
-                messages.append(ChatMessage(role: "assistant", content: "Error: \(error.localizedDescription)"))
+                messages.append(ChatMessage(role: "assistant", content: "Gagal menghubungkan ke AI. Pastikan 9Router lu sudah jalan di http://localhost:8787."))
             }
             isSending = false
         }
