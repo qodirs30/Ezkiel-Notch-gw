@@ -1,6 +1,6 @@
 import SwiftUI
 import NotchCore
-import Foundation // Tambah ini buat URLSession dan JSON
+import Foundation
 
 struct ChatMessage: Identifiable {
     let id = UUID()
@@ -95,6 +95,5 @@ struct AIPane: View {
             }
             isSending = false
         }
-    }
     }
 }
