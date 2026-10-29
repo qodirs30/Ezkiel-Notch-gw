@@ -376,7 +376,7 @@ public enum ClosedFace: String, Codable, CaseIterable, Identifiable {
 }
 
 public enum EyeStyle: String, Codable, CaseIterable, Identifiable {
-    case lion, anime, cat, cute, robot
+    case lion, anime, cat, cute, robot, agres
     public var id: String { rawValue }
 
     public var title: String {
@@ -386,6 +386,7 @@ public enum EyeStyle: String, Codable, CaseIterable, Identifiable {
         case .cat: return "Cat"
         case .cute: return "Cute"
         case .robot: return "Robot"
+        case .agres: return "Agres"
         }
     }
 }

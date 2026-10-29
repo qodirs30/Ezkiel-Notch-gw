@@ -95,7 +95,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private func installStatusItem() {
         let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         item.button?.image = IconRenderer.statusImage()
-        item.button?.toolTip = "Ezkiel Notch"
+        item.button?.toolTip = "Agres Notch"
         let menu = NSMenu()
         menu.autoenablesItems = false
         menu.delegate = self
@@ -120,7 +120,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             menu.addItem(.separator())
         }
 
-        menu.addItem(ActionMenuItem("Open Ezkiel Notch") { [weak self] in self?.model.toggle() })
+        menu.addItem(ActionMenuItem("Open Agres Notch") { [weak self] in self?.model.toggle() })
         menu.addItem(ActionMenuItem("Keep Open") { [weak self] in
             guard let self else { return }
             self.model.pinned = true
@@ -134,12 +134,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
         menu.addItem(.separator())
         menu.addItem(ActionMenuItem("Settings…", key: ",") { [weak self] in self?.model.expand(.settings) })
-        menu.addItem(ActionMenuItem("Ezkiel Notch website") {
+        menu.addItem(ActionMenuItem("Agres Notch website") {
             NSWorkspace.shared.open(URL(string: "https://ezkielyna.store/notch")!)
         })
         menu.addItem(.separator())
         menu.addItem(ActionMenuItem("Mirror", key: "") { [weak self] in self?.model.setMirror(true) })
         menu.addItem(.separator())
-        menu.addItem(ActionMenuItem("Quit Ezkiel Notch", key: "q") { NSApp.terminate(nil) })
+        menu.addItem(ActionMenuItem("Quit Agres Notch", key: "q") { NSApp.terminate(nil) })
     }
 }

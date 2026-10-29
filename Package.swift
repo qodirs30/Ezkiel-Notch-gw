@@ -2,10 +2,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "EzkielNotch",
+    name: "AgresNotch",
     platforms: [.macOS(.v13)],
     products: [
-        .executable(name: "EzkielNotch", targets: ["EzkielNotch"])
+        .executable(name: "Agres Notch", targets: ["EzkielNotch"])
     ],
     targets: [
         .target(name: "NotchCore"),

@@ -32,7 +32,7 @@ enum NotchTab: String, CaseIterable, Identifiable {
         case .stash: return "File shelf"
         case .oasis: return "Water"
         case .settings: return "Settings"
-        case .ai: return "AI Companion"
+        case .ai: return "Agres AI Assistant"
         }
     }
 

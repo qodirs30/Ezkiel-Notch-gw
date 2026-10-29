@@ -49,12 +49,37 @@ struct EzkielEyes: View {
     @ViewBuilder
     private var canvas: some View {
         let glow: CGFloat = state == .waiting ? 1 : 0, smile: CGFloat = state == .happy ? 1 : 0
-        if style == .lion {
+        if style == .agres {
+            AgresGIFEyesView(height: height)
+        } else if style == .lion {
             LionEyesCanvas(open: openness * lid, look: look, glow: glow, smile: smile)
         } else {
             StyledEyesCanvas(style: style, open: openness * lid, look: look, glow: glow, smile: smile,
                              twinkle: twinkle, wide: hovering || state == .waiting ? 1 : 0)
         }
+    }
+
+    // Helper View buat nampilin GIF Animasi Agres
+    private struct AgresGIFEyesView: NSViewRepresentable {
+        var height: CGFloat
+        
+        func makeNSView(context: Context) -> NSImageView {
+            let imageView = NSImageView()
+            imageView.imageScaling = .scaleProportionallyUpOrDown
+            imageView.animates = true
+            
+            // Coba load eyes.gif dari Resources
+            if let path = Bundle.main.path(forResource: "eyes", ofType: "gif"),
+               let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
+                imageView.image = NSImage(data: data)
+            } else {
+                // Fallback kalau GIF belum ada
+                imageView.image = NSImage(systemSymbolName: "eye.circle", accessibilityDescription: nil)
+            }
+            return imageView
+        }
+        
+        func updateNSView(_ nsView: NSImageView, context: Context) {}
     }
 
     /// Blinks (both eyes at once), and glances: slow side to side while an agent works, now and then otherwise.

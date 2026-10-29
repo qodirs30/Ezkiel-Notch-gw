@@ -16,11 +16,11 @@ struct AIPane: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header AI
+            // Header AI - Rebranded to Agres
             HStack {
                 Image(systemName: "sparkles")
                     .foregroundStyle(Accent.stash.deep)
-                Text("AI Companion").font(Theme.font(Theme.Size.body, .bold))
+                Text("Agres AI Assistant").font(Theme.font(Theme.Size.body, .bold))
                 Spacer()
             }
             .padding()
@@ -29,6 +29,13 @@ struct AIPane: View {
             // Riwayat Chat
             ScrollView {
                 VStack(alignment: .leading, spacing: 10) {
+                    if messages.isEmpty {
+                        Text("Halo! Saya Agres AI. Ada yang bisa saya bantu?")
+                            .font(.system(size: 13))
+                            .padding(8)
+                            .background(Color.white.opacity(0.05))
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
                     ForEach(messages) { message in
                         Text(message.content)
                             .font(.system(size: 13))
@@ -43,7 +50,7 @@ struct AIPane: View {
             
             // Input Area
             HStack(spacing: 8) {
-                TextField("Tanya apa saja...", text: $chatInput)
+                TextField("Tanya Agres...", text: $chatInput)
                     .textFieldStyle(.plain)
                     .padding(8)
                     .background(Color.white.opacity(0.05))
@@ -55,8 +62,9 @@ struct AIPane: View {
                     }
                 
                 Button(action: sendMessage) {
-                    Image(systemName: "arrow.up.circle.fill")
+                    Image(systemName: isSending ? "ellipsis.circle.fill" : "arrow.up.circle.fill")
                         .font(.system(size: 20))
+                        .foregroundStyle(isSending ? Theme.mist : Accent.stash.deep)
                 }
                 .buttonStyle(.plain)
                 .disabled(isSending || chatInput.isEmpty)
@@ -76,6 +84,7 @@ struct AIPane: View {
 
         Task {
             do {
+                // Menggunakan Port 20128 sesuai skill local-ai-gateway-ops
                 let url = URL(string: "http://localhost:20128/v1/chat/completions")!
                 var request = URLRequest(url: url)
                 request.httpMethod = "POST"
@@ -87,7 +96,6 @@ struct AIPane: View {
                 ]
                 request.httpBody = try JSONSerialization.data(withJSONObject: body)
                 
-                // Gunakan timeout singkat biar ngga nunggu lama
                 let configuration = URLSessionConfiguration.default
                 configuration.timeoutIntervalForRequest = 15
                 let session = URLSession(configuration: configuration)
@@ -100,10 +108,10 @@ struct AIPane: View {
                 if let response = content?["content"] as? String {
                     messages.append(ChatMessage(role: "assistant", content: response))
                 } else {
-                    messages.append(ChatMessage(role: "assistant", content: "Format balasan AI tidak dikenal."))
+                    messages.append(ChatMessage(role: "assistant", content: "Format balasan tidak dikenal."))
                 }
             } catch {
-                messages.append(ChatMessage(role: "assistant", content: "Gagal menghubungkan ke AI. Pastikan 9Router lu sudah jalan di http://localhost:8787."))
+                messages.append(ChatMessage(role: "assistant", content: "Gagal menghubungkan ke Agres AI. Pastikan 9Router jalan di port 20128."))
             }
             isSending = false
         }
