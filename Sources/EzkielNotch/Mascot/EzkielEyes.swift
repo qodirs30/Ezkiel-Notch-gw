@@ -169,6 +169,7 @@ private struct StyledEyesCanvas: View, Animatable {
                 case .cat: cat(ctx, c, side: side, o: o, h: h, w: w)
                 case .cute: cute(ctx, c, o: o, h: h, w: w)
                 case .robot, .lion: robot(ctx, c, o: o, h: h, w: w)
+                case .agres: break // GIF dirender oleh AgresGIFEyesView
                 }
             }
         }
