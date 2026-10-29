@@ -8,7 +8,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
 APP_NAME="Agres Notch"
-EXEC="AgresNotch"
+EXEC="Agres Notch"
 DIST="$ROOT/dist"
 APP="$DIST/$APP_NAME.app"
 VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' Resources/Info.plist)
