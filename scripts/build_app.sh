@@ -23,7 +23,7 @@ BIN_DIR="$(swift build -c release "${ARCH_FLAGS[@]}" --show-bin-path)"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp "$BIN_DIR/$EXEC" "$APP/Contents/MacOS/$EXEC"
+cp "$BIN_DIR/"* "$APP/Contents/MacOS/"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
 printf 'APPLEZKN' > "$APP/Contents/PkgInfo"
 
