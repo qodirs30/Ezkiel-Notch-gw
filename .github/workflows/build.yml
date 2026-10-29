@@ -1,4 +1,4 @@
-name: Build Ezkiel Notch
+name: Build Agres Notch
 
 on:
   push:
@@ -44,7 +44,7 @@ jobs:
 
       - name: Self-test
         run: |
-          "dist/Ezkiel Notch.app/Contents/MacOS/EzkielNotch" --self-test --snapshots "$PWD/snapshots" --fake-notch --data "$PWD/demo-data.json" &
+          "dist/Agres Notch.app/Contents/MacOS/Agres Notch" --self-test --snapshots "$PWD/snapshots" --fake-notch --data "$PWD/demo-data.json" &
           PID=$!
           for i in $(seq 1 150); do
             if ! kill -0 $PID 2>/dev/null; then break; fi
@@ -55,7 +55,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: EzkielNotch-macOS
+          name: AgresNotch-macOS
           path: |
             dist/*.dmg
             dist/*.zip
