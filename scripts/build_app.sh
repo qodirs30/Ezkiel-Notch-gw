@@ -7,8 +7,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-APP_NAME="Ezkiel Notch"
-EXEC="EzkielNotch"
+APP_NAME="Agres Notch"
+EXEC="Agres Notch"
 DIST="$ROOT/dist"
 APP="$DIST/$APP_NAME.app"
 VERSION=$(/usr/libexec/PlistBuddy -c 'Print CFBundleShortVersionString' Resources/Info.plist)
@@ -41,8 +41,8 @@ SUFFIX="macOS-universal"
 [[ "$ARCHS" == "arm64" ]] && SUFFIX="macOS-arm64"
 [[ "$ARCHS" == "x86_64" ]] && SUFFIX="macOS-intel"
 
-ZIP="$DIST/EzkielNotch-$VERSION-$SUFFIX.zip"
-DMG="$DIST/EzkielNotch-$VERSION-$SUFFIX.dmg"
+ZIP="$DIST/AgresNotch-$VERSION-$SUFFIX.zip"
+DMG="$DIST/AgresNotch-$VERSION-$SUFFIX.dmg"
 rm -f "$ZIP" "$DMG"
 ditto -c -k --sequesterRsrc --keepParent "$APP" "$ZIP"
 
