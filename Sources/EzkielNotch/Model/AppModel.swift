@@ -318,7 +318,8 @@ final class AppModel: ObservableObject {
 
     /// On a display without a notch, a fullscreen app gets the whole top edge: the closed pill steps away.
     /// The pill has no camera housing to hide behind on a display without a notch, nor as a floating island.
-    var hiddenForFullscreen: Bool { inFullscreenCalm && (!geometry.hasNotch || isIsland) && presentation == .compact }
+    /// Rebranded: Agres Notch selalu tampil walau fullscreen.
+    var hiddenForFullscreen: Bool { false }
 
     /// Den is running a focus block and the user wants quiet.
     var focusQuiet: Bool { settings.quietDuringFocus && focus.isRunning && focus.mode == .focus }

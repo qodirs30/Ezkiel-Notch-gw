@@ -54,15 +54,6 @@ final class NotchWindowController {
             return (hosting, NSRect(x: local.x - 1, y: local.y - 1, width: 2, height: 2))
         }
         model.onCollapse = { [weak self] in self?.releaseKeyboard() }
-        
-        // Tambahan: Override hiddenForFullscreen di NotchWindowController.swift
-        // Biar Notch tetap tampil di fullscreen, bahkan di Telegram.
-        model.$fullscreenActive
-            .sink { [weak self] _ in
-                // Memaksa model untuk tidak menyembunyikan Notch di fullscreen
-                self?.model.hiddenForFullscreen = false 
-            }
-            .store(in: &cancellables)
 
         position()
         panel.orderFrontRegardless()
