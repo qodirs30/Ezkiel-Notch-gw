@@ -11,7 +11,8 @@ let package = Package(
         .target(name: "NotchCore"),
         .executableTarget(
             name: "AgresNotch",
-            dependencies: ["NotchCore"]
+            dependencies: ["NotchCore"],
+            path: "Sources/EzkielNotch"
         ),
         .testTarget(
             name: "NotchCoreTests",
