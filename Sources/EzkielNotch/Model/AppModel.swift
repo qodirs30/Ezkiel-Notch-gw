@@ -1168,6 +1168,15 @@ final class AppModel: ObservableObject {
                                    startHour: settings.activeHourStart, endHour: settings.activeHourEnd, now: now)
         else { return }
         lastWaterReminder = now
+        
+        // Alarm Bip Bip 10x
+        Task {
+            for _ in 1...10 {
+                NSSound(named: "Ping")?.play()
+                try? await Task.sleep(nanoseconds: 300_000_000) // delay 0.3s
+            }
+        }
+        
         showPeek(Peek(icon: "drop.fill", title: "Time for a sip",
                       subtitle: L("%d of %d ml today", waterToday, settings.waterGoal), tint: Accent.oasis.deep,
                       tab: .oasis, mood: .happy, sound: "Purr", showsLion: true))

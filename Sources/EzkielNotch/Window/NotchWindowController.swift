@@ -37,6 +37,8 @@ final class NotchWindowController {
             MainActor.assumeIsolated { self?.showContextMenu(event) }
         }
         panel.contentView = hosting
+        // Biar tetep tampil di Fullscreen
+        panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         panel.onEscape = { [weak self] in
             MainActor.assumeIsolated { self?.model.collapse() }
         }
