@@ -49,7 +49,7 @@ ditto -c -k --sequesterRsrc --keepParent "$APP" "$ZIP"
 STAGING="$(mktemp -d)"
 ditto "$APP" "$STAGING/$APP_NAME.app"
 ln -s /Applications "$STAGING/Applications"
-hdiutil create -volname "Ezkiel Notch $VERSION" -srcfolder "$STAGING" -ov -format UDZO "$DMG" >/dev/null
+hdiutil create -volname "Agres Notch $VERSION" -srcfolder "$STAGING" -ov -format UDZO "$DMG" >/dev/null
 hdiutil verify "$DMG" >/dev/null
 rm -rf "$STAGING"
 
